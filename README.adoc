@@ -12,7 +12,7 @@ bootstrap stateful services.
 
 For **Spring Boot 2.X**, containers are started using Spring Cloud https://cloud.spring.io/spring-cloud-static/spring-cloud.html#_the_bootstrap_application_context[bootstrap phase], so you will need Spring Cloud in your tests.
 
-For **Spring Boot 3**, containers are started using `ApplicationContextInitializer` and `EnvironmentPostProcessor`, so **Spring Cloud is not required**. See <<how-to-use, How to use>> below.
+For **Spring Boot 3**, Spring Cloud is optional. See <<how-to-use, How to use>> below.
 
 == Versions compatibility
 
@@ -29,16 +29,16 @@ For **Spring Boot 3**, containers are started using `ApplicationContextInitializ
 |3.1.X
 |===
 
-NOTE: **Spring Boot 3 Support**: Starting from version 3.1.X, this library works with Spring Boot 3 **without requiring Spring Cloud** dependencies. The library now uses `ApplicationContextInitializer` and `EnvironmentPostProcessor` for early container startup, providing the same functionality as the previous Spring Cloud bootstrap mechanism. Spring Cloud dependencies are now completely optional.
+NOTE: Starting from version 3.1.X, Spring Cloud is optional for Spring Boot 3 applications.
 
 [[how-to-use]]
 == How to use
 
 . https://docs.docker.com/install/[Install Docker] on your machine
-. **(Optional for Spring Boot 3)** If using Spring Boot 2.X, make sure you have http://projects.spring.io/spring-cloud/#quick-start[Spring Boot and Spring Cloud] in classpath of your tests.
+. For Spring Boot 2.X, make sure you have http://projects.spring.io/spring-cloud/#quick-start[Spring Boot and Spring Cloud] in classpath of your tests.
 In case if you need to https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-bootstrap[pick version].
 +
-NOTE: For Spring Boot 3, Spring Cloud is **no longer required**. You can skip this step and the library will use `ApplicationContextInitializer` and `EnvironmentPostProcessor` for early container startup.
+NOTE: For Spring Boot 3, Spring Cloud is optional.
 +
 .pom.xml
 [source,xml]

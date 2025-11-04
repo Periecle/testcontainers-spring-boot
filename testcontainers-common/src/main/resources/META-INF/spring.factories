@@ -1,14 +1,8 @@
-# Spring Cloud Bootstrap Configuration (for projects using Spring Cloud)
 org.springframework.cloud.bootstrap.BootstrapConfiguration=\
  com.playtika.testcontainer.common.spring.DockerPresenceBootstrapConfiguration
 
-# Spring Boot 3 ApplicationContextInitializer (works without Spring Cloud)
 org.springframework.context.ApplicationContextInitializer=\
  com.playtika.testcontainer.common.spring.ContainersApplicationContextInitializer
-
-# Spring Boot 3 EnvironmentPostProcessor (works without Spring Cloud)
-org.springframework.boot.env.EnvironmentPostProcessor=\
- com.playtika.testcontainer.common.spring.ContainersEnvironmentPostProcessor
 
 org.springframework.boot.diagnostics.FailureAnalyzer=\
  com.playtika.testcontainer.common.spring.NoDockerPresenceMarkerFailureAnalyser,\
