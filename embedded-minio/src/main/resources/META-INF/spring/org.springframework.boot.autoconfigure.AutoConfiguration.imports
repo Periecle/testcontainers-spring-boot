@@ -1,1 +1,2 @@
+com.playtika.testcontainer.minio.EmbeddedMinioBootstrapConfiguration
 com.playtika.testcontainer.minio.EmbeddedMinioTestOperationsAutoConfiguration

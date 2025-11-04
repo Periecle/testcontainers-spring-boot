@@ -1,2 +1,3 @@
+com.playtika.testcontainer.neo4j.EmbeddedNeo4jBootstrapConfiguration
 com.playtika.testcontainer.neo4j.EmbeddedNeo4jTestOperationsAutoConfiguration
 com.playtika.testcontainer.neo4j.EmbeddedNeo4jDependenciesAutoConfiguration

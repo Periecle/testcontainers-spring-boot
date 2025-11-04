@@ -1,1 +1,2 @@
+com.playtika.testcontainer.nativekafka.configuration.EmbeddedNativeKafkaBootstrapConfiguration
 com.playtika.testcontainer.nativekafka.configuration.EmbeddedNativeKafkaTestOperationsAutoConfiguration

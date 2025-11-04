@@ -1,1 +1,2 @@
+com.playtika.testcontainer.cassandra.EmbeddedCassandraBootstrapConfiguration
 com.playtika.testcontainer.cassandra.EmbeddedCassandraDependenciesAutoConfiguration

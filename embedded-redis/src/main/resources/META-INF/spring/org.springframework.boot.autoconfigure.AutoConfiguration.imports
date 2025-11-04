@@ -1,2 +1,3 @@
+com.playtika.testcontainer.redis.EmbeddedRedisBootstrapConfiguration
 com.playtika.testcontainer.redis.EmbeddedRedisTestOperationsAutoConfiguration
 com.playtika.testcontainer.redis.EmbeddedRedisDependenciesAutoConfiguration

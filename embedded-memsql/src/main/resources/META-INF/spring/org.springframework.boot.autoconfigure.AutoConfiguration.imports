@@ -1,2 +1,3 @@
+com.playtika.testcontainer.memsql.EmbeddedMemSqlBootstrapConfiguration
 com.playtika.testcontainer.memsql.EmbeddedMemSqlTestOperationsAutoConfiguration
 com.playtika.testcontainer.memsql.EmbeddedMemSqlDependenciesAutoConfiguration

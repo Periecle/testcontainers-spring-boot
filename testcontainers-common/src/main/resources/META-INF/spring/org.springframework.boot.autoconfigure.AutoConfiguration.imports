@@ -1,1 +1,2 @@
+com.playtika.testcontainer.common.spring.DockerPresenceBootstrapConfiguration
 com.playtika.testcontainer.common.spring.EmbeddedContainersShutdownAutoConfiguration

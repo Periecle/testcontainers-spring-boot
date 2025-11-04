@@ -1,1 +1,2 @@
+com.playtika.testcontainer.opensearch.EmbeddedOpenSearchBootstrapConfiguration
 com.playtika.testcontainer.opensearch.EmbeddedOpenSearchRestClientDependenciesAutoConfiguration

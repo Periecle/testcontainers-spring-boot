@@ -1,1 +1,2 @@
+com.playtika.testcontainer.dynamodb.EmbeddedDynamoDBBootstrapConfiguration
 com.playtika.testcontainer.dynamodb.EmbeddedDynamoDBDependenciesAutoConfiguration

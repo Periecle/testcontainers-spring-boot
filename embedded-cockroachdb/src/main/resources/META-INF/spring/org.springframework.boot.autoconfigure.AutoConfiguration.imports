@@ -1,1 +1,2 @@
+com.playtika.testcontainer.cockroach.EmbeddedCockroachDBBootstrapConfiguration
 com.playtika.testcontainer.cockroach.EmbeddedCockroachDBDependenciesAutoConfiguration

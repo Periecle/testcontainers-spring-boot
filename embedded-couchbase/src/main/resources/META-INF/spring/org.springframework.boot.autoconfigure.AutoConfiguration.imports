@@ -1,2 +1,3 @@
+com.playtika.testcontainer.couchbase.EmbeddedCouchbaseBootstrapConfiguration
 com.playtika.testcontainer.couchbase.EmbeddedCouchbaseTestOperationsAutoConfiguration
 com.playtika.testcontainer.couchbase.EmbeddedCouchbaseDependenciesAutoConfiguration

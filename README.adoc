@@ -8,8 +8,11 @@ https://testing.googleblog.com/2010/12/test-sizes.html[medium sized] tests durin
 Spring Boot auto-configurations might be handy. By adding module into classpath, you will get stateful service,
 like Couchbase or Kafka, auto-started and available for connection from your application service w/o wiring any
 additional code. https://www.docker.com/[Docker] and https://www.testcontainers.org/[TestContainers] are used to
-bootstrap stateful service using Spring Cloud https://cloud.spring.io/spring-cloud-static/spring-cloud.html#_the_bootstrap_application_context[bootstrap phase].
-Usage of Spring Cloud in your production code is optional, but __you will need it in tests__. See <<how-to-use, How to use>> below.
+bootstrap stateful services.
+
+For **Spring Boot 2.X**, containers are started using Spring Cloud https://cloud.spring.io/spring-cloud-static/spring-cloud.html#_the_bootstrap_application_context[bootstrap phase], so you will need Spring Cloud in your tests.
+
+For **Spring Boot 3**, containers are started using `ApplicationContextInitializer` and `EnvironmentPostProcessor`, so **Spring Cloud is not required**. See <<how-to-use, How to use>> below.
 
 == Versions compatibility
 
@@ -26,12 +29,16 @@ Usage of Spring Cloud in your production code is optional, but __you will need i
 |3.1.X
 |===
 
+NOTE: **Spring Boot 3 Support**: Starting from version 3.1.X, this library works with Spring Boot 3 **without requiring Spring Cloud** dependencies. The library now uses `ApplicationContextInitializer` and `EnvironmentPostProcessor` for early container startup, providing the same functionality as the previous Spring Cloud bootstrap mechanism. Spring Cloud dependencies are now completely optional.
+
 [[how-to-use]]
 == How to use
 
 . https://docs.docker.com/install/[Install Docker] on your machine
-. Make sure you have http://projects.spring.io/spring-cloud/#quick-start[Spring Boot and Spring Cloud] in classpath of your tests.
+. **(Optional for Spring Boot 3)** If using Spring Boot 2.X, make sure you have http://projects.spring.io/spring-cloud/#quick-start[Spring Boot and Spring Cloud] in classpath of your tests.
 In case if you need to https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-bootstrap[pick version].
++
+NOTE: For Spring Boot 3, Spring Cloud is **no longer required**. You can skip this step and the library will use `ApplicationContextInitializer` and `EnvironmentPostProcessor` for early container startup.
 +
 .pom.xml
 [source,xml]

@@ -1,1 +1,2 @@
+com.playtika.testcontainer.db2.EmbeddedDb2BootstrapConfiguration
 com.playtika.testcontainer.db2.EmbeddedDb2DependenciesAutoConfiguration

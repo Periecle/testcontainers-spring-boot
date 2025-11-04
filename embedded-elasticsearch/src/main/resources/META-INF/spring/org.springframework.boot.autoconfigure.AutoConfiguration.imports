@@ -1,1 +1,2 @@
+com.playtika.testcontainer.elasticsearch.EmbeddedElasticSearchBootstrapConfiguration
 com.playtika.testcontainer.elasticsearch.EmbeddedElasticSearchRestClientDependenciesAutoConfiguration

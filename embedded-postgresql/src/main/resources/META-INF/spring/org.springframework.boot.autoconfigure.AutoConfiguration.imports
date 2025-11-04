@@ -1,1 +1,2 @@
+com.playtika.testcontainer.postgresql.EmbeddedPostgreSQLBootstrapConfiguration
 com.playtika.testcontainer.postgresql.EmbeddedPostgreSQLDependenciesAutoConfiguration

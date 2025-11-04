@@ -1,1 +1,2 @@
+com.playtika.testcontainers.aerospike.enterprise.SetupEnterpriseAerospikeBootstrapConfiguration
 com.playtika.testcontainers.aerospike.enterprise.EnterpriseAerospikeTestOperationsAutoConfiguration

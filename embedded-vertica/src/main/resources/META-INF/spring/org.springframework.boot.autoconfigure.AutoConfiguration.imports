@@ -1,1 +1,2 @@
+com.playtika.testcontainer.vertica.EmbeddedVerticaBootstrapConfiguration
 com.playtika.testcontainer.vertica.EmbeddedVerticaDependenciesAutoConfiguration

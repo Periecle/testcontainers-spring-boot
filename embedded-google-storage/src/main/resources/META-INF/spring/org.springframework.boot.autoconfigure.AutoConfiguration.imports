@@ -1,1 +1,2 @@
+com.playtika.testcontainer.storage.EmbeddedStorageBootstrapConfiguration
 com.playtika.testcontainer.storage.EmbeddedStorageDependenciesAutoConfiguration

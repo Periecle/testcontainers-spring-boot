@@ -1,2 +1,3 @@
+com.playtika.testcontainer.mysql.EmbeddedMySQLBootstrapConfiguration
 com.playtika.testcontainer.mysql.EmbeddedMySQLTestOperationsAutoConfiguration
 com.playtika.testcontainer.mysql.EmbeddedMySQLDependenciesAutoConfiguration

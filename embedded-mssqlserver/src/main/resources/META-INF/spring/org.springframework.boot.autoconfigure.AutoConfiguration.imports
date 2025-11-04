@@ -1,1 +1,2 @@
+com.playtika.testcontainer.mssqlserver.EmbeddedMSSQLServerBootstrapConfiguration
 com.playtika.testcontainer.mssqlserver.EmbeddedMSSQLServerDependenciesAutoConfiguration

@@ -1,2 +1,3 @@
+com.playtika.testcontainer.kafka.configuration.EmbeddedKafkaBootstrapConfiguration
 com.playtika.testcontainer.kafka.configuration.EmbeddedKafkaTestOperationsAutoConfiguration
 com.playtika.testcontainer.kafka.configuration.camel.EmbeddedKafkaCamelAutoConfiguration

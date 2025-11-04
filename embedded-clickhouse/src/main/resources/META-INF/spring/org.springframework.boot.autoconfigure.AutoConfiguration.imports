@@ -1,1 +1,2 @@
+com.playtika.testcontainer.clickhouse.EmbeddedClickHouseBootstrapConfiguration
 com.playtika.testcontainer.clickhouse.EmbeddedClickHouseDependenciesAutoConfiguration
