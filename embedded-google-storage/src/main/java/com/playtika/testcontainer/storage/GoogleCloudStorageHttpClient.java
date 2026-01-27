@@ -3,67 +3,59 @@ package com.playtika.testcontainer.storage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 
 @Slf4j
 class GoogleCloudStorageHttpClient {
 
-    //TODO: replace with HttpRequest from Java 11, when migrated
-    public void sendUpdateConfigRequest(String containerEndpoint) throws IOException {
-        HttpURLConnection connection = null;
-        try {
+    private final HttpClient httpClient;
 
+    GoogleCloudStorageHttpClient() {
+        this.httpClient = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(5))
+                .build();
+    }
+
+    public void sendUpdateConfigRequest(String containerEndpoint) throws IOException {
+        try {
             String requestBody = "{"
                     + "\"externalUrl\": \"" + containerEndpoint + "\""
                     + "}";
 
-            URL url = new URL(containerEndpoint + "/_internal/config");
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(5_000);
-            connection.setReadTimeout(5_000);
-            connection.setRequestMethod("PUT");
-            connection.setDoOutput(true);
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setRequestProperty("Accept", "application/json");
-            try (OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream())) {
-                osw.write(requestBody);
-                osw.flush();
-            }
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(containerEndpoint + "/_internal/config"))
+                    .timeout(Duration.ofSeconds(5))
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
 
-            int responseCode = connection.getResponseCode();
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            int responseCode = response.statusCode();
 
             if (responseCode != 200) {
-                String response = getResponseBody(connection);
                 log.error(
                         "error updating Google Cloud Fake Storage Server with external url, response status code {} != 200 message {}",
                         responseCode,
-                        response);
+                        response.body());
             }
         } catch (Exception e) {
             log.error("error updating Google Cloud Fake Storage Server with external host", e);
-            throw e;
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
             }
+            if (e instanceof IOException) {
+                throw (IOException) e;
+            }
+            if (e instanceof RuntimeException) {
+                throw (RuntimeException) e;
+            }
+            throw new IOException(e);
         }
-    }
-
-    private String getResponseBody(HttpURLConnection connection) throws IOException {
-        try (InputStream inputStream = getStream(connection)) {
-            InputStreamReader streamReader = new InputStreamReader(inputStream);
-            Scanner s = new Scanner(streamReader).useDelimiter("\\A");
-            return s.hasNext() ? s.next() : "";
-        }
-    }
-
-    private InputStream getStream(HttpURLConnection connection) throws IOException {
-        InputStream errorStream = connection.getErrorStream();
-        return  errorStream != null ? errorStream : connection.getInputStream();
     }
 }
