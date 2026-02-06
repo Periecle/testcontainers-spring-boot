@@ -3,12 +3,10 @@ package com.playtika.testcontainer.common.utils;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 
-import javax.net.ServerSocketFactory;
-
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @UtilityClass
 public class TcpPortAvailableUtils {
@@ -17,9 +15,7 @@ public class TcpPortAvailableUtils {
 
     public static final int PORT_RANGE_MAX = 65535;
 
-
-    private static final Random random = new Random(System.nanoTime());
-
+    private static final int MAX_SEARCH_ATTEMPTS = 100;
 
     public static int findAvailableTcpPort() {
         return findAvailableTcpPort(PORT_RANGE_MIN);
@@ -51,8 +47,7 @@ public class TcpPortAvailableUtils {
             @Override
             protected boolean isPortAvailable(int port) {
                 try {
-                    ServerSocket serverSocket = ServerSocketFactory.getDefault()
-                            .createServerSocket(port, 1, InetAddress.getByName("localhost"));
+                    ServerSocket serverSocket = new ServerSocket(port, 1, InetAddress.getLoopbackAddress());
                     serverSocket.close();
                     return true;
                 } catch (Exception ex) {
@@ -65,7 +60,7 @@ public class TcpPortAvailableUtils {
             @Override
             protected boolean isPortAvailable(int port) {
                 try {
-                    DatagramSocket socket = new DatagramSocket(port, InetAddress.getByName("localhost"));
+                    DatagramSocket socket = new DatagramSocket(port, InetAddress.getLoopbackAddress());
                     socket.close();
                     return true;
                 } catch (Exception ex) {
@@ -78,7 +73,7 @@ public class TcpPortAvailableUtils {
 
         private int findRandomPort(int minPort, int maxPort) {
             int portRange = maxPort - minPort;
-            return minPort + random.nextInt(portRange + 1);
+            return minPort + ThreadLocalRandom.current().nextInt(portRange + 1);
         }
 
         int findAvailablePort(int minPort, int maxPort) {
@@ -90,7 +85,7 @@ public class TcpPortAvailableUtils {
             int candidatePort;
             int searchCounter = 0;
             do {
-                if (searchCounter > portRange) {
+                if (searchCounter > portRange || searchCounter > MAX_SEARCH_ATTEMPTS) {
                     throw new IllegalStateException(String.format(
                             "Could not find an available %s port in the range [%d, %d] after %d attempts",
                             name(), minPort, maxPort, searchCounter));
