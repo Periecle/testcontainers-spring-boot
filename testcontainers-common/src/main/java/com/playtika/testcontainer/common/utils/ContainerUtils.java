@@ -146,17 +146,8 @@ public class ContainerUtils {
 
     public static Consumer<OutputFrame> containerLogsConsumer(Logger log) {
         return (OutputFrame outputFrame) -> {
-            switch (outputFrame.getType()) {
-                case STDERR:
-                    log.debug(outputFrame.getUtf8String());
-                    break;
-                case STDOUT:
-                case END:
-                    log.debug(outputFrame.getUtf8String());
-                    break;
-                default:
-                    log.debug(outputFrame.getUtf8String());
-                    break;
+            if (log.isDebugEnabled()) {
+                log.debug(outputFrame.getUtf8String());
             }
         };
     }
