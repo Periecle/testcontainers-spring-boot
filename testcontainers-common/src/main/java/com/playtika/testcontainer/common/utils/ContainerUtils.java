@@ -26,12 +26,15 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Slf4j
 @UtilityClass
 public class ContainerUtils {
+
+    private static final Map<String, String> IMAGE_CREATION_DATE_CACHE = new ConcurrentHashMap<>();
 
     public static DockerImageName getDockerImageName(CommonContainerProperties properties) {
         String customImageName = properties.getDockerImage();
@@ -117,19 +120,21 @@ public class ContainerUtils {
     }
 
     private String getBuildDate(GenericContainer<?> container, String dockerImageName) {
-        String imageResponseCreated = null;
-        try {
-            InspectImageResponse inspectImageResponse = container.getDockerClient().inspectImageCmd(dockerImageName).exec();
-            if (inspectImageResponse != null) {
-                imageResponseCreated = inspectImageResponse.getCreated();
-                return DateUtils.toDateAndTimeAgo(imageResponseCreated);
-            } else {
-                log.error("InspectImageResponse was null");
+        return IMAGE_CREATION_DATE_CACHE.computeIfAbsent(dockerImageName, imageName -> {
+            String imageResponseCreated = null;
+            try {
+                InspectImageResponse inspectImageResponse = container.getDockerClient().inspectImageCmd(imageName).exec();
+                if (inspectImageResponse != null) {
+                    imageResponseCreated = inspectImageResponse.getCreated();
+                    return DateUtils.toDateAndTimeAgo(imageResponseCreated);
+                } else {
+                    log.error("InspectImageResponse was null");
+                }
+            } catch (NotFoundException e) {
+                log.error("Could not get InspectImageResponse", e);
             }
-        } catch (NotFoundException e) {
-            log.error("Could not get InspectImageResponse", e);
-        }
-        return imageResponseCreated;
+            return imageResponseCreated;
+        });
     }
 
     private static ImagePullPolicy resolveImagePullPolicy(CommonContainerProperties properties) {
